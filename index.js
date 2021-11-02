@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
+const parse = require('node-html-parser').parse
+
 
 const port = 3000;
 
 let localDB = [];
 let payer = {};
 let spendObj = {};
-let spendResult = [];
+
 
 app.use(express.json())
 app.use(express.urlencoded());
@@ -53,28 +55,38 @@ const spend = (amount, payerObj, localDB) => {
       amount -= parseInt(localDB[i].points)
     }
   }
+  
+}
+
+const sendRes = () => {
+  let spendResult = [];
   for(let key in spendObj){
     spendResult.push({'payer': `${key}`, 'points': `${spendObj[key]}`})
   }
+  return spendResult;
 }
 
-app.post('/addTransaction', (req, res, e) => {
+app.post('/addTransaction', (req, res) => {
   let date = new Date();
   req.body.timestamp = date;
   const body = req.body;
   setPayer(body);
   localDB.push(body);
   localDB.sort((a,b) => b.timestamp - a.timestamp)
-  res.send(localDB)
+  res.redirect('/')
 })
 
 app.post('/spend', (req, res) => {
   spend(req.body.spend, payer, localDB)
-  res.send(spendResult)
+  let result = sendRes();
+  res.send(result)
 })
 
 app.get('/balance', (req, res) => {
   res.send(payer)
+})
+app.get('/transactions', (req, res) => {
+  res.send(localDB)
 })
 
 

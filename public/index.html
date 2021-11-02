@@ -4,21 +4,29 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
   <title>Fetch Backend</title>
 </head>
 <body>
-  <form enctype="application/x-www-form-urlencoded" action="/addTransaction" method="POST">
-    <label for="payer">Payer</label>
-    <input type="text" name="payer" id="payer">
-    <label for="points">Points</label>
-    <input type="number" name="points" id="points">
-    <button>Add Transaction</button>
-  </form>
-  <form enctype="application/x-www-form-urlencoded" action="/spend" method="POST">
-    <label for="spend">Spend</label>
-    <input type="integer" name="spend">
-    <button>Spend</button>
-  </form>
+  <div class='page-container'>
+    <form class='form' enctype="application/x-www-form-urlencoded" action="/addTransaction" method="POST">
+      <label for="payer">Payer</label>
+      <input type="text" name="payer" id="payer">
+      <label for="points">Points</label>
+      <input type="number" name="points" id="points">
+      <button>Add Transaction</button>
+    </form>
+    <form class='form' enctype="application/x-www-form-urlencoded" action="/spend" method="POST">
+      <label for="spend">Spend</label>
+      <input type="integer" name="spend">
+      <button>Spend</button>
+    </form>
+    <div>
+      <a class='balance-btn'href="/balance">Get Balance</a>
+      <a class='balance-btn'href="/transactions">Show Transactions</a>
+    </div>
+</div>
+
 </body>
 <script>
 
